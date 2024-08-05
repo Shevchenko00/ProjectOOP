@@ -1,13 +1,5 @@
 from connector import ConnectorWrite
 
-connection = ConnectorWrite.get_connect()
-cursor = connection.cursor()
-cursor.execute("SELECT * FROM 310524ptm_O_Shevchenko.query_results;")
-result = cursor.fetchall()
-print(result)
-cursor.close()
-connection.close()
-
 
 class Counter:
     def __init__(self, query):
