@@ -1,7 +1,5 @@
-from connector import ConnectorRead
 from connector import ConnectorWrite
 
-# Выполнение запроса и вывод результатов
 connection = ConnectorWrite.get_connect()
 cursor = connection.cursor()
 cursor.execute("SELECT * FROM 310524ptm_O_Shevchenko.query_results;")
@@ -18,7 +16,8 @@ class Counter:
         self.cursor = self.connection.cursor()
 
     def select(self):
-        self.cursor.execute(f"SELECT * FROM 310524ptm_O_Shevchenko.query_results WHERE query = %s;", (self.query,))#Не баг, а фича
+        self.cursor.execute(f"SELECT * FROM 310524ptm_O_Shevchenko.query_results WHERE query = %s;",
+                            (self.query,))  # Не баг, а фича
         self.result = self.cursor.fetchall()
         return self.result
 
@@ -45,7 +44,6 @@ class InsertTo:
     def close(self):
         self.cursor.close()
         self.connection.close()
-
 
 
 counter = Counter('car')
