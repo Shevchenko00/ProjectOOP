@@ -38,6 +38,11 @@ class ConnectorWrite:
         self.cursor = self.connection.cursor()
         print("Connection established")
 
+    def find_by_str(self, user_query):
+        self.cursor.execute("SELECT * FROM 310524ptm_O_Shevchenko.query_results WHERE query = %s;",
+                            (user_query,))
+        return self.cursor.fetchall()
+
     def __del__(self):
         self.close_connection()
 

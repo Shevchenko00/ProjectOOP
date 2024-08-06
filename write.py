@@ -1,4 +1,5 @@
 from connector import ConnectorWrite
+import userresult
 
 
 class Counter:
@@ -8,7 +9,7 @@ class Counter:
         self.cursor = self.connection.cursor()
 
     def select(self):
-        self.cursor.execute(f"SELECT * FROM 310524ptm_O_Shevchenko.query_results WHERE query = %s;",
+        self.cursor.execute("SELECT * FROM 310524ptm_O_Shevchenko.query_results WHERE query = %s;",
                             (self.query,))  # Не баг, а фича
         self.result = self.cursor.fetchall()
         return self.result
