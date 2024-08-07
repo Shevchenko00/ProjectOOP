@@ -39,15 +39,6 @@ class InsertTo:
         self.connection.close()
 
 
-# counter = Counter('car')
-# print(counter.select())
-# counter.close()
-#
-# insert_to = InsertTo('car')
-# insert_to.insert_or_update()
-# insert_to.close()
-
-
 def into():
     search = read.Search()
     while True:
