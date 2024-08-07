@@ -1,5 +1,5 @@
 from connector import ConnectorWrite
-import userresult
+import read
 
 
 class Counter:
@@ -39,10 +39,47 @@ class InsertTo:
         self.connection.close()
 
 
-counter = Counter('car')
-print(counter.select())
-counter.close()
+# counter = Counter('car')
+# print(counter.select())
+# counter.close()
+#
+# insert_to = InsertTo('car')
+# insert_to.insert_or_update()
+# insert_to.close()
 
-insert_to = InsertTo('car')
-insert_to.insert_or_update()
-insert_to.close()
+
+def into():
+    search = read.Search()
+    while True:
+        command = input("Введите команду (или '--help' для справки): ").lower()
+        if command == "--help":
+            print(
+                "Команды:\n--top: Популярные запросы\nactor: "
+                "Выполнить поиск по имени актера\nyear: Выполнить поиск по году фильма\nkeyword: "
+                "Поиск по ключевому слову\ndescription: Вывод по описанию\ntitle: Выполнить "
+                "поиск по названию фильма\ncategory: Выполнить поиск по категории ")
+        elif command == "title":
+            title = input("Введите название фильма: ").lower()
+            search.search_by_title(title)
+            insert_to = InsertTo(title)
+            insert_to.insert_or_update()
+            insert_to.close()
+        elif command == "year":
+            year = input("Введите год: ").lower()
+            search.search_by_year(year)
+            insert_to = InsertTo(year)
+            insert_to.insert_or_update()
+            insert_to.close()
+        elif command == "exit":
+            break
+        elif command == 'actor':
+            actor = input('Введите имя или фамилию актера: ').lower()
+            search.search_by_actor(actor)
+            insert_to = InsertTo(actor)
+            insert_to.insert_or_update()
+            insert_to.close()
+        elif command == 'description':
+            description = input('Введите слово(cловa: )')
+
+
+into()
