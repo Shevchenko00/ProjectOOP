@@ -23,10 +23,7 @@ class ConnectorRead:
     @staticmethod
     def get_connect(database="sakila"):
         dbconfig = {
-            'host': 'ich-db.ccegls0svc9m.eu-central-1.rds.amazonaws.com',
-            'user': 'ich1',
-            'password': 'password',
-            'database': database
+            
         }
         return mysql.connector.connect(**dbconfig)
 
@@ -58,9 +55,5 @@ class ConnectorWrite:
     @staticmethod
     def get_connect(database="310524ptm_O_Shevchenko"):
         dbconfig = {
-            'host': 'mysql.itcareerhub.de',
-            'user': 'ich1',
-            'password': 'ich1_password_ilovedbs',
-            'database': database
-        }
+            
         return mysql.connector.connect(**dbconfig)
