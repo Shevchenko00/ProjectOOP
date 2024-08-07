@@ -1,9 +1,9 @@
-from connector import ConnectorRead
+from connector import get_read_connection
 
 
 class Search:
     def __init__(self):
-        self.connection = ConnectorRead.get_connect()
+        self.connection = get_read_connection()
         self.cursor = self.connection.cursor()
 
     def result_print(self, data):

@@ -1,59 +1,36 @@
 import mysql.connector
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
-class ConnectorRead:
-    def __init__(self, config):
-        print("Opening connection...")
-        self.connection = mysql.connector.connect(**config)
-        self.cursor = self.connection.cursor()
-        print("Connection established")
+def get_read_connection():
+    db_config = {
+        'host': os.getenv('DB_HOST_R'),
+        'user': os.getenv('DB_USER_R'),
+        'password': os.getenv('DB_PASSWORD_R'),
+        'database': os.getenv('DB_DATA_R')
+    }
 
-    def __del__(self):
-        self.close_connection()
-
-    def close_connection(self):
-        if self.cursor:
-            print("Closing cursor...")
-            self.cursor.close()
-        if self.connection:
-            print("Closing connection...")
-            self.connection.close()
-        print("Connection closed")
-
-    @staticmethod
-    def get_connect(database="sakila"):
-        dbconfig = {
-            
-        }
-        return mysql.connector.connect(**dbconfig)
+    return mysql.connector.connect(**db_config)
 
 
-class ConnectorWrite:
-    def __init__(self, config):
-        print("Opening connection...")
-        self.connection = mysql.connector.connect(**config)
-        self.cursor = self.connection.cursor()
-        print("Connection established")
+def get_write_connection():
+    host = os.getenv('DB_HOST_W')
+    user = os.getenv('DB_USER_W')
+    database = os.getenv('DB_DATA_W')
+    password = os.getenv('DB_PASSWORD_W')
 
-    def find_by_str(self, user_query):
-        self.cursor.execute("SELECT * FROM 310524ptm_O_Shevchenko.query_results WHERE query = %s;",
-                            (user_query,))
-        return self.cursor.fetchall()
+    db_config = {
+        'host': host,
+        'user': user,
+        'database': database,
+        'password': password
+    }
 
-    def __del__(self):
-        self.close_connection()
-
-    def close_connection(self):
-        if self.cursor:
-            print("Closing cursor...")
-            self.cursor.close()
-        if self.connection:
-            print("Closing connection...")
-            self.connection.close()
-        print("Connection closed")
-
-    @staticmethod
-    def get_connect(database="310524ptm_O_Shevchenko"):
-        dbconfig = {
-            
-        return mysql.connector.connect(**dbconfig)
+    try:
+        connection = mysql.connector.connect(**db_config)
+        return connection
+    except mysql.connector.Error as err:
+        raise RuntimeError(f"Error connecting to the database: {err}")
